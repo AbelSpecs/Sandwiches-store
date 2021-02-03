@@ -10,6 +10,8 @@ from django.db import models
 
 ClienteForm = modelform_factory(Cliente, exclude=[])
 
+
+""" Pantalla inicial """
 def index(request):
     
     if request.method == "POST":
@@ -29,6 +31,8 @@ def index(request):
         'Cliente': formaCliente})
 
 
+
+""" Pantalla de pedido de sandwiches """
 def menu(request,id):
     
     if request.method == 'POST':
@@ -45,6 +49,7 @@ def menu(request,id):
             'Sandwiches': sandwiches}) 
     
     
+""" Pantalla de Ingredientes """    
 def ingredientes(request, id, idc, idp):
     if request.method == 'POST':
         ingredientes = Ingrediente.objects.all()
@@ -67,7 +72,9 @@ def ingredientes(request, id, idc, idp):
         return render(request, 'tienda/ingredientes.html', {
             'Ingredientes': ingredientes}) 
      
-
+ 
+     
+""" Ventana Modal """
 def modal(request, idc, idp):
     if request.GET.get('button') == 'button':
         return redirect('factura', id = idc)
@@ -80,7 +87,7 @@ def modal(request, idc, idp):
         
     
     
-    
+""" Resumen de Pedido """    
     
 def factura(request, id): 
     precioT = 0
@@ -111,7 +118,8 @@ fechaF = FechaForm(use_required_attribute=False)
 tamañoF = SandwichForm(use_required_attribute=False)
 clienteF = ClienteForm(use_required_attribute=False)
 ingredienteF = IngredienteForm(use_required_attribute=False)
-    
+
+""" Pantalla de reportes """    
 def ventas(request):
     
     if request.method == 'POST':
@@ -274,38 +282,42 @@ def ventas(request):
             sandwiches = Sandwich.objects.all()
             cliente = Cliente.objects.all()
             pedidoSand = PedidoSandwich.objects.all()
-            pedidoIngre = SandwichIngredientePedido.objects.all() 
+            pedidosIn = SandwichIngredientePedido.objects.all()
             ingredientes = Ingrediente.objects.all()
+            pedidoIngre = []
             pedidoS = []
             pedidoI = []
             pedidos = []
             clientes = []
             sandwiche = []
+            ingredient = []
             
-            for i in range(len(pedidoIngre)):
-                if pedidoIngre[i].ingrediente == ingrediente:
-                    pedidoI.append(pedidoIngre[i])
+            for i in range(len(pedidosIn)):
+                if(ingrediente == pedidosIn[i].ingrediente):
+                    pedidoIngre.append(pedidosIn[i])
                     
-            for i in range(len(pedidoI)):
+            for i in range(len(pedidoIngre)):
                 for j in range(len(pedido)):
-                    if pedidoI[i].pedido == pedido[j]:
-                       pedidos.append(pedido[j])
-                                     
-            for i in range(len(pedidos)):           
-                for j in range(len(pedidoSand)):
-                    if  pedidos[i] == pedidoSand[j].pedido:
-                        pedidoS.append(pedidoSand[j])
-                                  
+                    if(pedidoIngre[i].pedido == pedido[j]):
+                        pedidos.append(pedido[j])
+                        
             for i in range(len(pedidos)):
                 for j in range(len(cliente)):
-                    if pedidos[i].cliente == cliente[j]: 
-                       clientes.append(cliente[j])
-                       
-            """ for i in range(len(pedidoI)):
+                    if(pedidos[i].cliente == cliente[j]):
+                        clientes.append(cliente[j])
+            
+            for i in range(len(pedidos)):
+                for j in range(len(pedidoSand)):
+                    if(pedidos[i] == pedidoSand[j].pedido):
+                        pedidoS.append(pedidoSand[j])
+                        
+            for i in range(len(pedidoIngre)):
                 for j in range(len(sandwiches)):
-                    if pedidoI[i].sandwich == sandwiches[j]:
-                        sandwiche.append(sandwiches[j]) """
-                    
+                    if(pedidoIngre[i].sandwich == sandwiches[j]):
+                        sandwiche.append(sandwiches[j])
+                        
+            ingredient.append(ingrediente)
+                              
                        
             return render(request, 'tienda/ventas.html', {
                 'Boton': 'no mostrar',
@@ -313,9 +325,9 @@ def ventas(request):
                 'Clientes': clientes,
                 'Pedidos': pedidos,
                 'PedidoSand': pedidoS,
-                'Sandwiches': sandwiches,
+                'Sandwiches': sandwiche,
                 'Ingredientes': ingredientes,
-                'PedidoIngre': pedidoI,
+                'PedidoIngre': pedidoIngre,
             })
             
     else:

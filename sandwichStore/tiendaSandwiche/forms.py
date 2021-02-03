@@ -2,6 +2,7 @@ from django import forms
 from functools import partial
 DateInput = partial(forms.DateInput, {'class': 'datepicker'})
 
+""" Forms para los inputs de los reportes """
 
 class FechaForm(forms.Form):
     fecha = forms.DateTimeField(widget=DateInput())
