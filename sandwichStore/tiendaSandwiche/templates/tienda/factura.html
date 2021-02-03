@@ -1,0 +1,102 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	
+	<link rel="stylesheet" href="{% static 'css/factura.css' %}">
+	
+</head>
+
+<h3 class= "texto-center">Factura de Pedido</h3>
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            
+            <div class="card-body">
+                <h5>Gracias por su compra</h5>
+
+                <div>
+        
+            
+                <div>
+                    <p class="bold" >Su pedido contiene lo siguiente:</p> 
+                    {% for ps in PedidoSandwiche %}
+                        
+                        {% for sandwiche in Sandwiche %}
+                            
+                            {% if ps.sandwich == sandwiche and ps.pedido == Pedidos %}
+                                <p class="bold" >Sandwich {{sandwiche.tamaño}} con los siguientes ingredientes:</p>
+                            
+                                <ul>
+                                    {% for pi in PedidoIngre %}
+                                        {% for ingrediente in Ingredientes %}
+                                            {% if pi.pedido == Pedidos and pi.sandwich == sandwiche and pi.ingrediente == ingrediente %}
+                                                <div>
+                                                   <li class="ingredientes"> {{ingrediente.nombre}}</li>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+
+                            {% endif %}
+                            
+                        {% endfor %}
+                    {% endfor %}
+                    
+                    <p class="bold" >por un precio total de: {{PrecioT}}$</p>
+                </div>
+           
+        
+            </div>
+                 
+            </div>
+        
+    </div>
+<div>    
+    
+  </div>
+
+
+<html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    

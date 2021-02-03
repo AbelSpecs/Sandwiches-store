@@ -1,0 +1,146 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	
+	<link rel="stylesheet" href="{% static 'css/ventas.css' %}">
+	
+</head>
+
+<h3 class= "texto-center">Reportes</h3>
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        {% if Boton == 'mostrar'%}
+            <div class="user_card" style="width: 880px">
+        {% else %}     
+            <div class="user_card" style="width: 350px">
+        {% endif %}
+                
+              
+            <div class="card-body">
+           
+                <h3>Ventas {{Venta}}</h3>
+
+                <form method="POST">
+                    <div class="flex-field">
+                    <div ><div class="item"> {% if Boton == 'mostrar'%}<p>Fecha</p>{% endif %}{{Fecha}}</div></div>
+                    <div ><div class="item"> {% if Boton == 'mostrar'%}<p>Sandwich</p>{% endif %}{{Tamaño}}</div></div>
+                    <div ><div class="item"> {% if Boton == 'mostrar'%}<p>Cliente</p>{% endif %}{{Cliente}}</div></div>
+                    <div ><div class="item"> {% if Boton == 'mostrar'%}<p>Ingrediente</p>{% endif %}{{Ingrediente}}</div></div>
+                    </div>
+
+                    {% if Boton == 'mostrar'%}
+                    <button type= "submit" class="btn login_btn">Buscar</button>
+                    {% endif %}
+                    {% csrf_token %}
+                </form>
+
+
+                <div>
+                    
+                        {% for cliente in Clientes %}
+                            
+                            {% for p in Pedidos %}
+                            
+                                {% if p.cliente == cliente %}
+                                    <div class ="izquierda">
+                                        {{p.fecha}}
+                                    </div>
+                                    <div class = "derecha">
+                                       <p> Cliente: {{cliente.nombre}}</p>
+                                    </div>
+
+                                    {% for ps in PedidoSand %}
+                                    
+                                        {% for sandwiche in Sandwiches %}
+                                            {% if ps.pedido == p and ps.sandwich == sandwiche %}
+                                                <div class= "lista">
+                                                    <p class= "bold">Sandwich {{sandwiche.tamaño}} {{sandwiche.precio}}$</p>
+                                                </div>
+
+                                                {% for pi in PedidoIngre %}
+                                                    {% for ingrediente in Ingredientes %}
+                                                        {% if pi.pedido == p and pi.ingrediente == ingrediente and pi.sandwich == sandwiche %}
+                                                            <li>
+                                                                {{ingrediente.nombre}} {{ingrediente.precio}}$
+                                                            </li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endfor %}
+
+                                            {% endif %}
+
+                                        
+
+                                        {% endfor %}
+
+                                    {% endfor %}
+
+                                {% endif %}
+                            {% endfor %}
+
+                                
+                        {% endfor %}
+                    
+                </div>
+           
+        
+            </div>
+                 
+        </div>
+        
+    </div>
+<div>    
+    
+  </div>
+
+
+<html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+
+
+
+
+
+
+

@@ -1,0 +1,76 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	
+	<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+	
+</head>
+
+<h3 class= "texto-center">Menu de Sandwiches</h3>
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="card center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Precios</h5>
+
+                <div>
+                    <ul>
+                        {% for sandwich in Sandwiches %}
+                            <div>
+                            <p class="card-text">{{sandwich.tamaño}}: {{sandwich.precio}}$</p>   
+                            </div>
+                        {% endfor %}
+                    </ul> 
+                </div>
+
+                <h5>Seleccione el tipo de Sandwich que desea</h5>
+                <form method="POST">
+                    <div class="texto-center">
+                        <input type="radio" id="small" name="checks"  value="Individual"> Individual<br>
+                        <input type="radio" id="medium" name="checks"  value="Doble"> Doble<br>
+                        <input type="radio" id="large" name="checks"  value="Triple"> Triple<br>
+                        
+                
+                        
+                        <button type="submit" name="button" class="btn login_btn">Ingredientes</button>
+                        {% csrf_token %}
+
+                        
+                    </div>
+
+                    
+	
+                </form>
+            </div>
+        </div>
+    </div>
+<div>    
+    
+  </div>
+
+  
+
+<html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+    

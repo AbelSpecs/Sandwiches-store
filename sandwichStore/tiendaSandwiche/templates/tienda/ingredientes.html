@@ -1,0 +1,61 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	
+	<link rel="stylesheet" href="{% static 'css/ingrediente.css' %}">
+	
+</head>
+
+<h3 class= "texto-center">Lista de Ingredientes</h3>
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="card center" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">Precios</h5>
+
+                <div>
+                    <ul>
+                        {% for ingrediente in Ingredientes %}
+                            <div>
+                                {{ingrediente.nombre}}: {{ingrediente.precio}}$
+                            </div>
+                        {% endfor %}
+                    </ul> 
+                </div>
+
+                <h5>Seleccione los ingredientes a agregar a su Sandwich</h5>
+                <form method="POST">
+                    {% for ingrediente in Ingredientes %}
+                    <div class="">
+                        <input type="checkbox" name="check"  value="{{ingrediente.nombre}}"> {{ingrediente.nombre}}<br>
+                        
+                    </div>
+                    {% endfor %}
+                    <button type="submit" name="button" class="btn login_btn">Siguiente</button>
+                    {% csrf_token %}
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+<div>    
+    
+  </div>
+
+  
+
+<html>
+
+
+
+
+
+
+
+    
